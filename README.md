@@ -48,6 +48,12 @@ mutation AddTask {
   }
 }
 
+mutation UpdateList {
+  updateList(id: LISTID, title: "Do") {
+    title
+  }
+}
+
 mutation UpdateTask {
   updateTask(id: ID, body: {title: "Test API", status: "InProgress"}) {
     title
@@ -56,6 +62,19 @@ mutation UpdateTask {
     list {
         title
     }
+  }
+}
+
+
+mutation DeleteList {
+  deleteList(id: LISTID) {
+    title
+  }
+}
+
+mutation DeleteTask {
+  deleteTask(id: TASKID) {
+    title
   }
 }
 

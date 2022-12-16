@@ -47,6 +47,14 @@ const Resolvers = {
         },
       });
     },
+    updateList: async (_: any, args: any, context: any) => {
+      return await context.prisma.list.update({
+        where: { id: args.id },
+        data: {
+          title: args.title,
+        },
+      });
+    },
     updateTask: async (_: any, args: any, context: any) => {
       let { title, status } = args.body;
       return await context.prisma.task.update({
@@ -56,6 +64,30 @@ const Resolvers = {
           status,
         },
         include: { list: true },
+      });
+    },
+    deleteList: async (_: any, args: any, context: any) => {
+      await context.prisma.task.deleteMany({
+        where: { listId: args.id },
+      });
+
+      return await context.prisma.list.delete({
+        where: { id: args.id },
+      });
+    },
+    deleteTask: async (_: any, args: any, context: any) => {
+      let oldTask = await context.prisma.task.findFirst({
+        where: { id: args.id },
+      });
+
+      if (oldTask) {
+        await context.prisma.task.updateMany({
+          where: { position: { gt: oldTask.position } },
+          data: { position: { decrement: 1 } },
+        });
+      }
+      return await context.prisma.task.delete({
+        where: { id: args.id },
       });
     },
     moveTask: async (_: any, args: any, context: any) => {

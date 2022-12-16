@@ -45,6 +45,9 @@ const Schema = gql`
 
     addTask(body: ITask): Task
     updateTask(id: String, body: IUpdateTask): Task
+    updateList(id: String, title: String): List
+    deleteList(id: String): List
+    deleteTask(id: String): Task
     moveTask(id: String, listId: String, position: Int): Task
   }
 `;
