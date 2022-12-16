@@ -1,0 +1,17 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+coverage
+
+# Dependency directories
+node_modules
+
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+
+# build / generate output
+dist
